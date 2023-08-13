@@ -14,14 +14,17 @@ const ADD_BUTTON_DELAY = 30
 const SOLVE_DELAY = 50
 
 function addButtons() {
+    // TODO: This starts practice from the home tree lesson page.
+    //       We should extract this to a separate function
     if (window.location.pathname === '/learn') {
         let button = document.querySelector('a[data-test="global-practice"]');
         if (button) {
-           // return;
             button.click();
         }
     }
 
+    // If we detect the existance of a known button that we have added
+    // then we can return early.
     const solveAllButton = document.getElementById("solveAllButton");
     if (solveAllButton !== null) {
         return;
@@ -105,7 +108,7 @@ function addButtons() {
     }
 }
 
-
+// TODO: Also trigger startPractice
 setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solving() {
