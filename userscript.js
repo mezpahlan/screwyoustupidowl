@@ -10,6 +10,8 @@
 let solvingIntervalId;
 let isAutoMode = false;
 const debug = false;
+const ADD_BUTTON_DELAY = 30
+const SOLVE_DELAY = 50
 
 function addButtons() {
     if (window.location.pathname === '/learn') {
@@ -25,6 +27,8 @@ function addButtons() {
         return;
     }
 
+    // TODO: What does this mean?
+    //       it doesn't look like it activates in normal mode so do we really need it?
     const original = document.querySelectorAll('[data-test="player-next"]')[0];
     if (original === undefined) {
         const startButton = document.querySelector('[data-test="start-button"]');
@@ -102,7 +106,7 @@ function addButtons() {
 }
 
 
-setInterval(addButtons, 30);
+setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solving() {
     if (solvingIntervalId) {
@@ -113,7 +117,7 @@ function solving() {
     } else {
         document.getElementById("solveAllButton").innerText = "PAUSE SOLVE";
         isAutoMode = true;
-        solvingIntervalId = setInterval(solve, 50);
+        solvingIntervalId = setInterval(solve, SOLVE_DELAY);
     }
 }
 
