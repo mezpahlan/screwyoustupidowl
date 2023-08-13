@@ -248,9 +248,24 @@ function solve() {
             document.getElementById("solveAllButton").innerText = 'Challenge Tap Token Text';
         // fill the gap challenge
         correctIndicesRun();
+    } else if (document.querySelectorAll('[data-test="challenge challenge-name"]').length > 0) {
+        if (debug)
+            document.getElementById("solveAllButton").innerText = 'Challenge Name';
+        let correctAnswer = window.sol.correctSolutions[0].split(" ")
+        let correctArticle = correctAnswer[0]
+        let correctText = correctAnswer[1]
+        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
+        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+        nativeInputValueSetter.call(elm, correctText);
+        let inputEvent = new Event('input', {
+            bubbles: true
+        });
+
+        elm.dispatchEvent(inputEvent);
+        document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
+             if (article.textContent === correctArticle) article.click() 
+            })
     } else if (document.querySelectorAll('[data-test="challenge-text-input"]').length > 0) {
-        // TODO: Why doesn't this work for article and translation
-        // TODO: We have to extract the correct article from window.sol, press the appropriate button, then paste the remainder into the text areas
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Text Input';
         let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
