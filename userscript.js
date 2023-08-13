@@ -163,6 +163,7 @@ function solve() {
         if (buttonSkip) {
             buttonSkip.click();
         }
+        // TODO: Do we also want to continue here? document.querySelectorAll('[data-test="player-next"]')[0].click()
     } else if (window.sol.type === 'listenMatch') {
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Listen Match';
