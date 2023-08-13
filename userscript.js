@@ -249,6 +249,8 @@ function solve() {
         // fill the gap challenge
         correctIndicesRun();
     } else if (document.querySelectorAll('[data-test="challenge-text-input"]').length > 0) {
+        // TODO: Why doesn't this work for article and translation
+        // TODO: We have to extract the correct article from window.sol, press the appropriate button, then paste the remainder into the text areas
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Text Input';
         let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
