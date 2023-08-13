@@ -156,9 +156,9 @@ function solve() {
     if (!nextButton) {
         return;
     }
-    if (document.querySelectorAll('[data-test*="challenge-speak"]').length > 0) {
+    if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
         if (debug)
-            document.getElementById("solveAllButton").innerText = 'Challenge Speak';
+            document.getElementById("solveAllButton").innerText = 'Challenge Speak or Listen';
         const buttonSkip = document.querySelector('button[data-test="player-skip"]');
         if (buttonSkip) {
             buttonSkip.click();
