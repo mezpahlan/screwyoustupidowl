@@ -248,7 +248,7 @@ function solve() {
             document.getElementById("solveAllButton").innerText = 'Challenge Tap Token Text';
         // fill the gap challenge
         correctIndicesRun();
-    } else if (document.querySelectorAll('[data-test="challenge challenge-name"]').length > 0) {
+    } else if (document.querySelectorAll('[data-test="challenge-name"]').length > 0) {
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Name';
         let correctAnswer = window.sol.correctSolutions[0].split(" ")
