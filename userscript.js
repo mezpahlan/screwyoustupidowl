@@ -204,7 +204,7 @@ function solve() {
         document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
              if (article.textContent === correctArticle) article.click() 
             })
-    } else if (document.querySelectorAll('[data-test$="challenge-assist"] [data-test="challenge-choice"]').length > 0) {
+    } else if (document.querySelectorAll('[data-test="challenge-choice"]').length > 0) {
         // choice challenge
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Choice';
