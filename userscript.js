@@ -187,6 +187,23 @@ function solve() {
                 }
             }
         });
+    } else if (document.querySelectorAll('[data-test="challenge-judge-text"]').length == 2) {
+        if (debug)
+            document.getElementById("solveAllButton").innerText = 'Challenge Name';
+        let correctAnswer = window.sol.correctSolutions[0].split(" ")
+        let correctArticle = correctAnswer[0]
+        let correctText = correctAnswer[1]
+        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
+        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+        nativeInputValueSetter.call(elm, correctText);
+        let inputEvent = new Event('input', {
+            bubbles: true
+        });
+
+        elm.dispatchEvent(inputEvent);
+        document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
+             if (article.textContent === correctArticle) article.click() 
+            })
     } else if (document.querySelectorAll('[data-test="challenge-choice"]').length > 0) {
         // choice challenge
         if (debug)
@@ -248,23 +265,6 @@ function solve() {
             document.getElementById("solveAllButton").innerText = 'Challenge Tap Token Text';
         // fill the gap challenge
         correctIndicesRun();
-    } else if (document.querySelectorAll('[data-test="challenge-judge-text"]').length == 2) {
-        if (debug)
-            document.getElementById("solveAllButton").innerText = 'Challenge Name';
-        let correctAnswer = window.sol.correctSolutions[0].split(" ")
-        let correctArticle = correctAnswer[0]
-        let correctText = correctAnswer[1]
-        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
-        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-        nativeInputValueSetter.call(elm, correctText);
-        let inputEvent = new Event('input', {
-            bubbles: true
-        });
-
-        elm.dispatchEvent(inputEvent);
-        document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
-             if (article.textContent === correctArticle) article.click() 
-            })
     } else if (document.querySelectorAll('[data-test="challenge-text-input"]').length > 0) {
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Text Input';
