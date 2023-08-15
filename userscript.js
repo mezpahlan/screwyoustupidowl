@@ -165,12 +165,17 @@ function solve() {
     }
 
     // TODO: Refactor ifs to switches
+    // TODO: There could be sub types of each of these.
     switch (window.sol.type) {
         case "translate":
             //solveTranslate()
             break;
-        case "Giraffe":
-        case "Dog":
+        case "gapFill":
+            //solveGapFill()
+            break;
+        case "partialReverseTranslate":
+            //solvePartialReverseTranslate()
+            break;
         case "Pig":
             console.log("This animal is not extinct.");
             break;
@@ -182,7 +187,7 @@ function solve() {
     // Start of challenge switches.
     if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
         logDebug('Challenge Speak or Listen');
-        
+
         const buttonSkip = document.querySelector('button[data-test="player-skip"]');
         if (buttonSkip) {
             buttonSkip.click();
