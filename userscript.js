@@ -181,8 +181,8 @@ function solve() {
 
     // Start of challenge switches.
     if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
-        if (debug)
-            document.getElementById("solveAllButton").innerText = 'Challenge Speak or Listen';
+        logDebug('Challenge Speak or Listen');
+        
         const buttonSkip = document.querySelector('button[data-test="player-skip"]');
         if (buttonSkip) {
             buttonSkip.click();
@@ -368,6 +368,13 @@ function findReact(dom, traverseUp = 0) {
     return dom?.parentElement?.[reactProps]?.children[0]?._owner?.stateNode;
 }
 
+function logDebug(text) {
+    // Only log in debug mode and if there is a solve all button available.
+    const solveAllButton = document.getElementById("solveAllButton")
+    if (debug && solveAllButton) {
+        solveAllButton.innerText = text
+    }    
+}
 
 window.findReact = findReact;
 
