@@ -125,6 +125,7 @@ function solving() {
 }
 
 function solve() {
+    // If we are at the end of a lesson, move on.
     const selAgain = document.querySelectorAll('[data-test="player-practice-again"]');
     const practiceAgain = document.querySelector('[data-test="player-practice-again"]');
     if (selAgain.length === 1 && isAutoMode) {
@@ -140,6 +141,8 @@ function solve() {
         practiceAgain.click();
         return;
     }
+
+    // Try and find the solutions using the magic class. If we can't we must be on another page, move on.
     try {
         window.sol = findReact(document.getElementsByClassName('_3FiYg')[0]).props.currentChallenge;
     } catch {
@@ -149,13 +152,19 @@ function solve() {
         }
         return;
     }
+
+    // If we don't have solutions, we're not practicing, return early.
     if (!window.sol) {
         return;
     }
+
+    // If we don't have a next button, we're not practising, return early.
     let nextButton = document.querySelector('[data-test="player-next"]');
     if (!nextButton) {
         return;
     }
+
+    // Start of challenge switches.
     if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Speak or Listen';
