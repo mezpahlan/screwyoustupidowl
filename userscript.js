@@ -164,6 +164,21 @@ function solve() {
         return;
     }
 
+    // TODO: Refactor ifs to switches
+    switch (window.sol.type) {
+        case "translate":
+            //solveTranslate()
+            break;
+        case "Giraffe":
+        case "Dog":
+        case "Pig":
+            console.log("This animal is not extinct.");
+            break;
+        case "Dinosaur":
+        default:
+            console.log("This animal is extinct.");
+    }
+
     // Start of challenge switches.
     if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
         if (debug)
