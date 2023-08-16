@@ -241,11 +241,6 @@ function solve() {
                     }
                 })
             }
-        } else if (window.sol.correctTokens !== undefined) {
-            if (debug)
-                document.getElementById("solveAllButton").innerText = 'Token Run';
-            correctTokensRun();
-            nextButton.click()
         } else if (window.sol.correctIndices !== undefined) {
             if (debug)
                 document.getElementById("solveAllButton").innerText = 'Indices Run';
@@ -286,15 +281,24 @@ function solve() {
 function solveTranslate() {
     logDebug('Challenge Translate');
 
+    // Do we have a free text box or tokens?
     const elm = document.querySelector('textarea[data-test="challenge-translate-input"]');
-    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-    nativeInputValueSetter.call(elm, window.sol.correctSolutions ? window.sol.correctSolutions[0] : window.sol.prompt);
 
-    let inputEvent = new Event('input', {
-        bubbles: true
-    });
+    if (elm) {
+        // Solve the free text translate.
+        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+        nativeInputValueSetter.call(elm, window.sol.correctSolutions ? window.sol.correctSolutions[0] : window.sol.prompt);
 
-    elm.dispatchEvent(inputEvent);
+        let inputEvent = new Event('input', {
+            bubbles: true
+        });
+
+        elm.dispatchEvent(inputEvent);
+    } else {
+        // Solve the token translate.
+        correctTokensRun();
+        nextButton.click();
+    }
 }
 
 function solveGapFill() {
@@ -372,6 +376,9 @@ function correctTokensRun() {
             }
         }
     });
+
+    const nextButton = document.querySelector('[data-test="player-next"]');
+    nextButton.click();
 }
 
 function correctIndicesRun() {
