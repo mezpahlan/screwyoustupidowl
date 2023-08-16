@@ -170,7 +170,7 @@ function solve() {
     // TODO: Alphabetise?
     switch (window.sol.type) {
         case "translate":
-            //solveTranslate();
+            solveTranslate();
             break;
         case "gapFill":
             //solveGapFill()
@@ -278,24 +278,23 @@ function solve() {
         });
 
         elm.dispatchEvent(inputEvent);
-    } else if (document.querySelectorAll('textarea[data-test="challenge-translate-input"]').length > 0) {
-        if (debug)
-            document.getElementById("solveAllButton").innerText = 'Challenge Translate Input';
-        const elm = document.querySelector('textarea[data-test="challenge-translate-input"]');
-        const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
-        nativeInputValueSetter.call(elm, window.sol.correctSolutions ? window.sol.correctSolutions[0] : window.sol.prompt);
-
-        let inputEvent = new Event('input', {
-            bubbles: true
-        });
-
-        elm.dispatchEvent(inputEvent);
     }
+
     nextButton.click()
 }
 
 function solveTranslate() {
+    logDebug('Challenge Translate');
 
+    const elm = document.querySelector('textarea[data-test="challenge-translate-input"]');
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLTextAreaElement.prototype, "value").set;
+    nativeInputValueSetter.call(elm, window.sol.correctSolutions ? window.sol.correctSolutions[0] : window.sol.prompt);
+
+    let inputEvent = new Event('input', {
+        bubbles: true
+    });
+
+    elm.dispatchEvent(inputEvent);
 }
 
 function solveGapFill() {
