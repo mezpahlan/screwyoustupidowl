@@ -206,8 +206,8 @@ function solve() {
 
         elm.dispatchEvent(inputEvent);
         document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
-             if (article.textContent === correctArticle) article.click() 
-            })
+            if (article.textContent === correctArticle) article.click()
+        })
     } else if (document.querySelectorAll('[data-test="challenge-choice"]').length > 0) {
         // choice challenge
         if (debug)
@@ -407,7 +407,7 @@ function logDebug(text) {
     const solveAllButton = document.getElementById("solveAllButton")
     if (debug && solveAllButton) {
         solveAllButton.innerText = text
-    }    
+    }
 }
 
 window.findReact = findReact;
