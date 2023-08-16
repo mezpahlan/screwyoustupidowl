@@ -167,6 +167,7 @@ function solve() {
 
     // TODO: Refactor ifs to switches
     // TODO: There could be sub types of each of these.
+    // TODO: Alphabetise?
     switch (window.sol.type) {
         case "translate":
             //solveTranslate();
@@ -186,29 +187,15 @@ function solve() {
         case "listenMatch":
             solveListenMatch();
             break;
+        case "name":
+            solveName();
+            break;
         default:
             logDebug(window.sol.type);
     }
 
     // Start of challenge switches.
-    if (document.querySelectorAll('[data-test="challenge-judge-text"]').length == 2) {
-        if (debug)
-            document.getElementById("solveAllButton").innerText = 'Challenge Name';
-        let correctAnswer = window.sol.correctSolutions[0].split(" ")
-        let correctArticle = correctAnswer[0]
-        let correctText = correctAnswer[1]
-        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
-        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-        nativeInputValueSetter.call(elm, correctText);
-        let inputEvent = new Event('input', {
-            bubbles: true
-        });
-
-        elm.dispatchEvent(inputEvent);
-        document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
-            if (article.textContent === correctArticle) article.click()
-        })
-    } else if (document.querySelectorAll('[data-test="challenge-choice"]').length > 0) {
+    if (document.querySelectorAll('[data-test="challenge-choice"]').length > 0) {
         // choice challenge
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Choice';
@@ -345,6 +332,29 @@ function skipListenExercise() {
 
     // Continue
     document.querySelectorAll('[data-test="player-next"]')[0].click()
+}
+
+function solveName() {
+    logDebug('Challenge Name');
+
+    // Split the correct answer into article [0] and text [1].
+    let correctAnswer = window.sol.correctSolutions[0].split(" ")
+    let correctArticle = correctAnswer[0]
+    let correctText = correctAnswer[1]
+
+    // Input the correctText.
+    let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
+    let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+    nativeInputValueSetter.call(elm, correctText);
+    let inputEvent = new Event('input', {
+        bubbles: true
+    });
+    elm.dispatchEvent(inputEvent);
+    
+    // Select the correctArticle.
+    document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
+        if (article.textContent === correctArticle) article.click()
+    })
 }
 
 function correctTokensRun() {
