@@ -314,7 +314,7 @@ function solveListenIsolation() {
     logDebug('Listen Isolation');
 
     skipListenExercise();
-    
+
 }
 
 function solveListenMatch() {
@@ -350,7 +350,7 @@ function solveName() {
         bubbles: true
     });
     elm.dispatchEvent(inputEvent);
-    
+
     // Select the correctArticle.
     document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
         if (article.textContent === correctArticle) article.click()
