@@ -143,6 +143,7 @@ function solve() {
     }
 
     // Try and find the solutions using the magic class. If we can't we must be on another page, move on.
+    // TODO: This isn't available until after we have selected the first solve. Can we do this on page load?
     try {
         window.sol = findReact(document.getElementsByClassName('_3FiYg')[0]).props.currentChallenge;
     } catch {
@@ -168,55 +169,29 @@ function solve() {
     // TODO: There could be sub types of each of these.
     switch (window.sol.type) {
         case "translate":
-            //solveTranslate()
+            //solveTranslate();
             break;
         case "gapFill":
             //solveGapFill()
             break;
         case "partialReverseTranslate":
-            //solvePartialReverseTranslate()
+            //solvePartialReverseTranslate();
             break;
-        case "Pig":
-            console.log("This animal is not extinct.");
+        case "assist":
+            //solveAssist();
             break;
-        case "Dinosaur":
+        case "listenIsolation":
+            solveListenIsolation();
+            break;
+        case "listenMatch":
+            solveListenMatch();
+            break;
         default:
-            console.log("This animal is extinct.");
+            logDebug(window.sol.type);
     }
 
     // Start of challenge switches.
-    if (document.querySelectorAll('[data-test*="challenge-speak"], [data-test*="challenge-listenMatch"]').length > 0) {
-        logDebug('Challenge Speak or Listen');
-
-        const buttonSkip = document.querySelector('button[data-test="player-skip"]');
-        if (buttonSkip) {
-            buttonSkip.click();
-        }
-        document.querySelectorAll('[data-test="player-next"]')[0].click()
-    } else if (window.sol.type === 'listenMatch') {
-        if (debug)
-            document.getElementById("solveAllButton").innerText = 'Listen Match';
-        const nl = document.querySelectorAll('[data-test$="challenge-tap-token"]');
-        window.sol.pairs?.forEach((pair) => {
-            for (let i = 0; i < nl.length; i++) {
-                let nlInnerText;
-                if (nl[i].querySelectorAll('[data-test="challenge-tap-token-text"]').length > 1) {
-                    nlInnerText = nl[i].querySelector('[data-test="challenge-tap-token-text"]').innerText.toLowerCase().trim();
-                } else {
-                    nlInnerText = findSubReact(nl[i]).text.toLowerCase().trim();
-                }
-                if (
-                    (
-                        nlInnerText === pair.learningWord.toLowerCase().trim() ||
-                        nlInnerText === pair.translation.toLowerCase().trim()
-                    ) &&
-                    !nl[i].disabled
-                ) {
-                    nl[i].click();
-                }
-            }
-        });
-    } else if (document.querySelectorAll('[data-test="challenge-judge-text"]').length == 2) {
+    if (document.querySelectorAll('[data-test="challenge-judge-text"]').length == 2) {
         if (debug)
             document.getElementById("solveAllButton").innerText = 'Challenge Name';
         let correctAnswer = window.sol.correctSolutions[0].split(" ")
@@ -330,6 +305,63 @@ function solve() {
         elm.dispatchEvent(inputEvent);
     }
     nextButton.click()
+}
+
+function solveTranslate() {
+
+}
+
+function solveGapFill() {
+
+}
+
+function solvePartialReverseTranslate() {
+
+}
+
+function solveAssist() {
+
+}
+
+function solveListenIsolation() {
+    // TODO: Do we need this predicate if we know we are in a ListenIsolation??
+    if (document.querySelectorAll('[data-test*="challenge-listenMatch"]').length > 0) {
+        logDebug('Listen Isolation');
+
+        // Skip exercise
+        const buttonSkip = document.querySelector('button[data-test="player-skip"]');
+        if (buttonSkip) {
+            buttonSkip.click();
+        }
+
+        // Continue
+        document.querySelectorAll('[data-test="player-next"]')[0].click()
+    }
+}
+
+function solveListenMatch() {
+    logDebug('Listen Match');
+
+    const nl = document.querySelectorAll('[data-test$="challenge-tap-token"]');
+    window.sol.pairs?.forEach((pair) => {
+        for (let i = 0; i < nl.length; i++) {
+            let nlInnerText;
+            if (nl[i].querySelectorAll('[data-test="challenge-tap-token-text"]').length > 1) {
+                nlInnerText = nl[i].querySelector('[data-test="challenge-tap-token-text"]').innerText.toLowerCase().trim();
+            } else {
+                nlInnerText = findSubReact(nl[i]).text.toLowerCase().trim();
+            }
+            if (
+                (
+                    nlInnerText === pair.learningWord.toLowerCase().trim() ||
+                    nlInnerText === pair.translation.toLowerCase().trim()
+                ) &&
+                !nl[i].disabled
+            ) {
+                nl[i].click();
+            }
+        }
+    });
 }
 
 function correctTokensRun() {
