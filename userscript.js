@@ -326,6 +326,17 @@ function solveAssist() {
 function solveListenIsolation() {
     logDebug('Listen Isolation');
 
+    skipListenExercise();
+    
+}
+
+function solveListenMatch() {
+    logDebug('Listen Match');
+
+    skipListenExercise();
+}
+
+function skipListenExercise() {
     // Skip exercise
     const buttonSkip = document.querySelector('button[data-test="player-skip"]');
     if (buttonSkip) {
@@ -334,31 +345,6 @@ function solveListenIsolation() {
 
     // Continue
     document.querySelectorAll('[data-test="player-next"]')[0].click()
-}
-
-function solveListenMatch() {
-    logDebug('Listen Match');
-
-    const nl = document.querySelectorAll('[data-test$="challenge-tap-token"]');
-    window.sol.pairs?.forEach((pair) => {
-        for (let i = 0; i < nl.length; i++) {
-            let nlInnerText;
-            if (nl[i].querySelectorAll('[data-test="challenge-tap-token-text"]').length > 1) {
-                nlInnerText = nl[i].querySelector('[data-test="challenge-tap-token-text"]').innerText.toLowerCase().trim();
-            } else {
-                nlInnerText = findSubReact(nl[i]).text.toLowerCase().trim();
-            }
-            if (
-                (
-                    nlInnerText === pair.learningWord.toLowerCase().trim() ||
-                    nlInnerText === pair.translation.toLowerCase().trim()
-                ) &&
-                !nl[i].disabled
-            ) {
-                nl[i].click();
-            }
-        }
-    });
 }
 
 function correctTokensRun() {
