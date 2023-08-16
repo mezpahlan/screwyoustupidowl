@@ -9,7 +9,7 @@
 
 let solvingIntervalId;
 let isAutoMode = false;
-const debug = false;
+const debug = true;
 const ADD_BUTTON_DELAY = 30
 const SOLVE_DELAY = 50
 
