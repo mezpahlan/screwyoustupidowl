@@ -324,19 +324,16 @@ function solveAssist() {
 }
 
 function solveListenIsolation() {
-    // TODO: Do we need this predicate if we know we are in a ListenIsolation??
-    if (document.querySelectorAll('[data-test*="challenge-listenMatch"]').length > 0) {
-        logDebug('Listen Isolation');
+    logDebug('Listen Isolation');
 
-        // Skip exercise
-        const buttonSkip = document.querySelector('button[data-test="player-skip"]');
-        if (buttonSkip) {
-            buttonSkip.click();
-        }
-
-        // Continue
-        document.querySelectorAll('[data-test="player-next"]')[0].click()
+    // Skip exercise
+    const buttonSkip = document.querySelector('button[data-test="player-skip"]');
+    if (buttonSkip) {
+        buttonSkip.click();
     }
+
+    // Continue
+    document.querySelectorAll('[data-test="player-next"]')[0].click()
 }
 
 function solveListenMatch() {
