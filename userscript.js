@@ -359,26 +359,42 @@ function skipListenExercise() {
 }
 
 function solveName() {
-    logDebug('Challenge Name');
+    logDebug('Name');
 
-    // Split the correct answer into article [0] and text [1].
-    let correctAnswer = window.sol.correctSolutions[0].split(" ")
-    let correctArticle = correctAnswer[0]
-    let correctText = correctAnswer[1]
+    // Test if we are article + text or just text.
+    let correctAnswer = window.sol.correctSolutions[0].split(" ");
 
-    // Input the correctText.
-    let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
-    let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
-    nativeInputValueSetter.call(elm, correctText);
-    let inputEvent = new Event('input', {
-        bubbles: true
-    });
-    elm.dispatchEvent(inputEvent);
+    if (correctAnswer.length == 2) {
+        // Split the correct answer into article [0] and text [1].
+        let correctArticle = correctAnswer[0]
+        let correctText = correctAnswer[1]
 
-    // Select the correctArticle.
-    document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
-        if (article.textContent === correctArticle) article.click()
-    })
+        // Input the correctText.
+        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
+        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+        nativeInputValueSetter.call(elm, correctText);
+        let inputEvent = new Event('input', {
+            bubbles: true
+        });
+        elm.dispatchEvent(inputEvent);
+
+        // Select the correctArticle.
+        document.querySelectorAll('[data-test="challenge-judge-text"]').forEach((article) => {
+            if (article.textContent === correctArticle) article.click()
+        })
+    } else {
+        // Just text
+        let correctText = correctAnswer[0]
+
+        // Input the correctText.
+        let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
+        let nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, "value").set;
+        nativeInputValueSetter.call(elm, correctText);
+        let inputEvent = new Event('input', {
+            bubbles: true
+        });
+        elm.dispatchEvent(inputEvent);
+    }
 }
 
 function correctTokensRun() {
