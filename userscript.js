@@ -147,6 +147,7 @@ function solve() {
     try {
         window.sol = findReact(document.getElementsByClassName('_3FiYg')[0]).props.currentChallenge;
     } catch {
+        // TODO: Where is next defined?? It isn't.
         if (next) {
             next.click();
         }
@@ -163,9 +164,10 @@ function solve() {
     let nextButton = document.querySelector('[data-test="player-next"]');
     if (!nextButton) {
         return;
-    } else if (!nextButton.disabled) {
+    } else if (nextButton.text === 'Continue') {
         // Defeat motivation interstitial message if it appears.
         nextButton.click();
+        return;
     }
 
     // TODO: Refactor ifs to switches
@@ -177,12 +179,14 @@ function solve() {
             break;
         case "gapFill":
             //solveGapFill()
+            logDebug(window.sol.type);
             break;
         case "partialReverseTranslate":
             //solvePartialReverseTranslate();
+            logDebug(window.sol.type);
             break;
         case "assist":
-            //solveAssist();
+            solveAssist();
             break;
         case "listenIsolation":
             solveListenIsolation();
@@ -205,9 +209,6 @@ function solve() {
     //     if (window.sol.correctTokens !== undefined) {
     //         correctTokensRun();
     //         nextButton.click()
-    //     } else if (window.sol.correctIndex !== undefined) {
-    //         document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
-    //         nextButton.click();
     //     }
     // } else if (document.querySelectorAll('[data-test$="challenge-tap-token"]').length > 0) {
     //     // match correct pairs challenge
@@ -278,7 +279,11 @@ function solve() {
     //     elm.dispatchEvent(inputEvent);
     // }
 
-    nextButton.click()
+    // Check answer.
+    nextButton.click();
+
+    // Move on.
+    nextButton.click();
 }
 
 function solveTranslate(specificType) {
@@ -322,7 +327,9 @@ function solvePartialReverseTranslate() {
 }
 
 function solveAssist() {
+    logDebug('Assist');
 
+    document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
 }
 
 function solveListenIsolation() {
@@ -347,7 +354,7 @@ function skipListenExercise() {
 
     // Continue
     // TODO: We have this at the end of solve()???
-    document.querySelectorAll('[data-test="player-next"]')[0].click()
+    // document.querySelectorAll('[data-test="player-next"]')[0].click()
 }
 
 function solveName() {
