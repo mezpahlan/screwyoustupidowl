@@ -362,12 +362,14 @@ function solveName() {
     logDebug('Name');
 
     // Test if we are article + text or just text.
-    let correctAnswer = window.sol.correctSolutions[0].split(" ");
+    let correctAnswer = window.sol.correctSolutions[0];
+    let judge = document.querySelectorAll('[data-test="challenge-judge-text"]');
 
-    if (correctAnswer.length == 2) {
+    if (judge.length > 0) {
         // Split the correct answer into article [0] and text [1].
-        let correctArticle = correctAnswer[0]
-        let correctText = correctAnswer[1]
+        let correctAnswerSplit = correctAnswer.split(" ");
+        let correctArticle = correctAnswerSplit[0]
+        let correctText = correctAnswerSplit[1]
 
         // Input the correctText.
         let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
