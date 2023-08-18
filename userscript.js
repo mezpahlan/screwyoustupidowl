@@ -164,7 +164,7 @@ function solve() {
     let nextButton = document.querySelector('[data-test="player-next"]');
     if (!nextButton) {
         return;
-    } else if (nextButton.text === 'Continue') {
+    } else if (nextButton.textContent === 'Continue') {
         // Defeat motivation interstitial message if it appears.
         nextButton.click();
         return;
