@@ -422,7 +422,7 @@ function correctTokensRun() {
 }
 
 function correctIndexRun() {
-    if (window.sol.correctIndex) {
+    if (window.sol.correctIndex !== undefined) {
         document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
     }
 }
