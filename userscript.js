@@ -181,8 +181,7 @@ function solve() {
             solveGapFill()
             break;
         case "partialReverseTranslate":
-            //solvePartialReverseTranslate();
-            logDebug(window.sol.type);
+            solvePartialReverseTranslate();
             break;
         case "assist":
             solveAssist();
@@ -195,6 +194,9 @@ function solve() {
             break;
         case "name":
             solveName();
+            break;
+        case "name":
+            solveForm();
             break;
         default:
             logDebug(window.sol.type);
@@ -265,17 +267,6 @@ function solve() {
     //     });
 
     //     elm.dispatchEvent(inputEvent);
-    // } else if (document.querySelectorAll('[data-test*="challenge-partialReverseTranslate"]').length > 0) {
-    //     if (debug)
-    //         document.getElementById("solveAllButton").innerText = 'Partial Reverse';
-    //     let elm = document.querySelector('[data-test*="challenge-partialReverseTranslate"]')?.querySelector("span[contenteditable]");
-    //     let nativeInputNodeTextSetter = Object.getOwnPropertyDescriptor(Node.prototype, "textContent").set
-    //     nativeInputNodeTextSetter.call(elm, window.sol?.displayTokens?.filter(t => t.isBlank)?.map(t => t.text)?.join()?.replaceAll(',', ''));
-    //     let inputEvent = new Event('input', {
-    //         bubbles: true
-    //     });
-
-    //     elm.dispatchEvent(inputEvent);
     // }
 
     // Check answer.
@@ -320,17 +311,26 @@ function solveTranslate(specificType) {
 function solveGapFill() {
     logDebug('Gap Fill');
 
-    document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
+    correctIndexRun();
 }
 
 function solvePartialReverseTranslate() {
+    logDebug('Partial Reverse Translate');
 
+    let elm = document.querySelector('[data-test*="challenge-partialReverseTranslate"]')?.querySelector("span[contenteditable]");
+    let nativeInputNodeTextSetter = Object.getOwnPropertyDescriptor(Node.prototype, "textContent").set
+    nativeInputNodeTextSetter.call(elm, window.sol?.displayTokens?.filter(t => t.isBlank)?.map(t => t.text)?.join()?.replaceAll(',', ''));
+    let inputEvent = new Event('input', {
+        bubbles: true
+    });
+
+    elm.dispatchEvent(inputEvent);
 }
 
 function solveAssist() {
     logDebug('Assist');
 
-    document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
+    correctIndexRun();
 }
 
 function solveListenIsolation() {
@@ -397,6 +397,12 @@ function solveName() {
     }
 }
 
+function solveForm() {
+    logDebug('Form');
+
+    correctIndexRun();
+}
+
 function correctTokensRun() {
     const all_tokens = document.querySelectorAll('[data-test$="challenge-tap-token"]');
     const correct_tokens = window.sol.correctTokens;
@@ -413,6 +419,12 @@ function correctTokensRun() {
             }
         }
     });
+}
+
+function correctIndexRun() {
+    if (window.sol.correctIndex) {
+        document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
+    }
 }
 
 function correctIndicesRun() {
