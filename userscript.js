@@ -178,8 +178,7 @@ function solve() {
             solveTranslate(window.sol.challengeGeneratorIdentifier.specificType);
             break;
         case "gapFill":
-            //solveGapFill()
-            logDebug(window.sol.type);
+            solveGapFill()
             break;
         case "partialReverseTranslate":
             //solvePartialReverseTranslate();
@@ -319,7 +318,9 @@ function solveTranslate(specificType) {
 }
 
 function solveGapFill() {
+    logDebug('Gap Fill');
 
+    document.querySelectorAll('[data-test="challenge-choice"]')[window.sol.correctIndex].click();
 }
 
 function solvePartialReverseTranslate() {
