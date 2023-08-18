@@ -195,7 +195,7 @@ function solve() {
         case "name":
             solveName();
             break;
-        case "name":
+        case "form":
             solveForm();
             break;
         default:
