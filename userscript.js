@@ -386,7 +386,7 @@ function solveName() {
         })
     } else {
         // Just text
-        let correctText = correctAnswer[0]
+        let correctText = correctAnswer;
 
         // Input the correctText.
         let elm = document.querySelectorAll('[data-test="challenge-text-input"]')[0];
