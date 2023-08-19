@@ -170,9 +170,6 @@ function solve() {
         return;
     }
 
-    // TODO: Refactor ifs to switches
-    // TODO: There could be sub types of each of these.
-    // TODO: Alphabetise?
     switch (window.sol.type) {
         case "translate":
             solveTranslate(window.sol.challengeGeneratorIdentifier.specificType);
@@ -212,9 +209,6 @@ function solve() {
 function solveTranslate(specificType) {
     logDebug(`Challenge Translate: ${specificType}`);
 
-    // TODO: specifictype tap reverse_tap translate reverse translate???
-    // TODO: all four specific types seem to be taken care of by the below code??
-
     const nextButton = document.querySelector('[data-test="player-next"]');
 
     // Do we have a free text box or tokens?
@@ -233,12 +227,7 @@ function solveTranslate(specificType) {
     } else {
         // Solve the token translate.
         correctTokensRun();
-        // correctIndicesRun();
     }
-
-
-    // TODO: Remove because we have one at the end of solve()
-    // nextButton.click();
 }
 
 function solveGapFill() {
@@ -285,10 +274,6 @@ function skipListenExercise() {
     if (buttonSkip) {
         buttonSkip.click();
     }
-
-    // Continue
-    // TODO: We have this at the end of solve()???
-    // document.querySelectorAll('[data-test="player-next"]')[0].click()
 }
 
 function solveName() {
@@ -367,7 +352,6 @@ function correctIndicesRun() {
         window.sol.correctIndices?.forEach(index => {
             document.querySelectorAll('div[data-test="word-bank"] [data-test="challenge-tap-token-text"]')[index].click();
         });
-        // nextButton.click();
     }
 }
 
