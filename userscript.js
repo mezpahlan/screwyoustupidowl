@@ -28,7 +28,6 @@ function addButtons() {
         return;
     }
 
-    
     const originalButton = document.querySelectorAll('[data-test="player-next"]')[0];
     const wrapper = document.getElementsByClassName('_10vOG')[0];
     wrapper.style.display = "flex";
@@ -69,16 +68,8 @@ function addButtons() {
 setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solveAll() {
-    if (solvingIntervalId) {
-        clearInterval(solvingIntervalId);
-        solvingIntervalId = undefined;
-        document.getElementById("solveAllButton").innerText = "SOLVE ALL";
-        isAutoMode = false;
-    } else {
-        document.getElementById("solveAllButton").innerText = "PAUSE SOLVE";
-        isAutoMode = true;
-        solvingIntervalId = setInterval(solve, SOLVE_DELAY);
-    }
+    setInterval(solve, SOLVE_DELAY);
+    isAutoMode = true;
 }
 
 function solve() {
