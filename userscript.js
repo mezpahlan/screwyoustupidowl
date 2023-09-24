@@ -12,12 +12,18 @@ const debug = true;
 const ADD_BUTTON_DELAY = 300
 const SOLVE_DELAY = 50
 
-function addButtons() {
-    // TODO: This starts practice from the home tree lesson page.
-    //       We should extract this to a separate function
-    if (/learn/.test (location.pathname) ) {
+function navigateToPracticeFromHomeTree() {
+    if (/learn/.test(location.pathname)) {
         var newURL = location.protocol + "//" + location.host + "/practice"
         location.replace(newURL);
+        return true;
+    }
+    return false;
+}
+
+function addButtons() {
+    if (navigateToPracticeFromHomeTree()) {
+        return;
     }
 
     // If we detect the existance of a known button that we have added
