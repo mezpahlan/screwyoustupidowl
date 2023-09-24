@@ -8,7 +8,6 @@
 // @description When you don't want to practice.
 // ==/UserScript==
 
-let isAutoMode = false;
 const debug = true;
 const ADD_BUTTON_DELAY = 300
 const SOLVE_DELAY = 50
@@ -68,14 +67,13 @@ setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solveAll() {
     setInterval(solve, SOLVE_DELAY);
-    isAutoMode = true;
 }
 
 function solve() {
     // If we are at the end of a lesson, move on.
     const selAgain = document.querySelectorAll('[data-test="player-practice-again"]');
     const practiceAgain = document.querySelector('[data-test="player-practice-again"]');
-    if (selAgain.length === 1 && isAutoMode) {
+    if (selAgain.length === 1) {
         // Make sure it's the `practice again` button
         //if (selAgain[0].innerHTML.toLowerCase() === 'practice again') {
         // Click the `practice again` button
@@ -84,7 +82,7 @@ function solve() {
         return;
         //}
     }
-    if (practiceAgain !== null && isAutoMode) {
+    if (practiceAgain !== null) {
         practiceAgain.click();
         return;
     }
