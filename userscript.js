@@ -8,7 +8,6 @@
 // @description When you don't want to practice.
 // ==/UserScript==
 
-let solvingIntervalId;
 let isAutoMode = false;
 const debug = true;
 const ADD_BUTTON_DELAY = 300
@@ -35,7 +34,7 @@ function addButtons() {
     const solveAllButton = document.createElement('button');
 
     solveAllButton.id = 'solveAllButton';
-    solveAllButton.innerHTML = solvingIntervalId ? 'PAUSE SOLVE ALL' : 'SOLVE ALL';
+    solveAllButton.innerHTML = 'SOLVE ALL';
     solveAllButton.disabled = false;
 
     const buttonStyle = `
