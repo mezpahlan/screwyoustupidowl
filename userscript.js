@@ -104,10 +104,12 @@ function addButtons() {
 
         solveCopy.addEventListener('click', solving);
         pauseCopy.addEventListener('click', solve);
+
+        // Trigger auto practice
+        solveCopy.click();
     }
 }
 
-// TODO: Also trigger startPractice
 setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solving() {
