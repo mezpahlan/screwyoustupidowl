@@ -28,46 +28,18 @@ function addButtons() {
         return;
     }
 
-    // TODO: What does this mean?
-    //       it doesn't look like it activates in normal mode so do we really need it?
+    
     const original = document.querySelectorAll('[data-test="player-next"]')[0];
-    if (original === undefined) {
-    const startButton = document.querySelector('[data-test="start-button"]');
-    console.log(`Wrapper line: ${startButton}`);
-    if (startButton === null) {
-    return;
-    }
-        const wrapper = startButton.parentNode;
-    const solveAllButton = document.createElement('a');
-    solveAllButton.className = startButton.className;
-    solveAllButton.id = "solveAllButton";
-    solveAllButton.innerText = "COMPLETE SKILL";
-    solveAllButton.removeAttribute('href');
-    solveAllButton.addEventListener('click', () => {
-    solveAll();
-    setInterval(() => {
-    const startButton = document.querySelector('[data-test="start-button"]');
-    if (startButton && startButton.innerText.startsWith("START")) {
-    startButton.click();
-    }
-            }, 50);
-    startButton.click();
-    });
-    wrapper.appendChild(solveAllButton);
+    const wrapper = document.getElementsByClassName('_10vOG')[0];
+    wrapper.style.display = "flex";
 
-    // Trigerr auto solve.
-    solveAllButton.click();
-    } else {
-        const wrapper = document.getElementsByClassName('_10vOG')[0];
-        wrapper.style.display = "flex";
+    const solveAllButton = document.createElement('button');
 
-        const solveAllButton = document.createElement('button');
+    solveAllButton.id = 'solveAllButton';
+    solveAllButton.innerHTML = solvingIntervalId ? 'PAUSE SOLVE ALL' : 'SOLVE ALL';
+    solveAllButton.disabled = false;
 
-        solveAllButton.id = 'solveAllButton';
-        solveAllButton.innerHTML = solvingIntervalId ? 'PAUSE SOLVE ALL' : 'SOLVE ALL';
-        solveAllButton.disabled = false;
-
-        const buttonStyle = `
+    const buttonStyle = `
                             min-width: 150px;
                             font-size: 17px;
                             border:none;
@@ -84,15 +56,14 @@ function addButtons() {
                             cursor:pointer;
                             `;
 
-        solveAllButton.style.cssText = buttonStyle;
+    solveAllButton.style.cssText = buttonStyle;
 
-        original.parentElement.appendChild(solveAllButton);
+    original.parentElement.appendChild(solveAllButton);
 
-        solveAllButton.addEventListener('click', solveAll);
+    solveAllButton.addEventListener('click', solveAll);
 
-        // Trigger auto solve.
-        solveAllButton.click();
-    }
+    // Trigger auto solve.
+    solveAllButton.click();
 }
 
 setInterval(addButtons, ADD_BUTTON_DELAY);
