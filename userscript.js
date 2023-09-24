@@ -29,7 +29,7 @@ function addButtons() {
     }
 
     
-    const original = document.querySelectorAll('[data-test="player-next"]')[0];
+    const originalButton = document.querySelectorAll('[data-test="player-next"]')[0];
     const wrapper = document.getElementsByClassName('_10vOG')[0];
     wrapper.style.display = "flex";
 
@@ -58,7 +58,7 @@ function addButtons() {
 
     solveAllButton.style.cssText = buttonStyle;
 
-    original.parentElement.appendChild(solveAllButton);
+    originalButton.parentElement.appendChild(solveAllButton);
 
     solveAllButton.addEventListener('click', solveAll);
 
