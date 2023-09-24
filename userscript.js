@@ -45,7 +45,7 @@ function addButtons() {
         solveAllButton.innerText = "COMPLETE SKILL";
         solveAllButton.removeAttribute('href');
         solveAllButton.addEventListener('click', () => {
-            solving();
+            solveAll();
             setInterval(() => {
                 const startButton = document.querySelector('[data-test="start-button"]');
                 if (startButton && startButton.innerText.startsWith("START")) {
@@ -62,13 +62,13 @@ function addButtons() {
         const wrapper = document.getElementsByClassName('_10vOG')[0];
         wrapper.style.display = "flex";
 
-        const solveCopy = document.createElement('button');
-        const pauseCopy = document.createElement('button');
+        const solveAllButton = document.createElement('button');
+        const solveButton = document.createElement('button');
 
-        solveCopy.id = 'solveAllButton';
-        solveCopy.innerHTML = solvingIntervalId ? 'PAUSE SOLVE' : 'SOLVE ALL';
-        solveCopy.disabled = false;
-        pauseCopy.innerHTML = 'SOLVE';
+        solveAllButton.id = 'solveAllButton';
+        solveAllButton.innerHTML = solvingIntervalId ? 'PAUSE SOLVE ALL' : 'SOLVE ALL';
+        solveAllButton.disabled = false;
+        solveButton.innerHTML = 'SOLVE';
 
         const buttonStyle = `
       min-width: 150px;
@@ -87,32 +87,32 @@ function addButtons() {
       cursor:pointer;
     `;
 
-        solveCopy.style.cssText = buttonStyle;
-        pauseCopy.style.cssText = buttonStyle;
+        solveAllButton.style.cssText = buttonStyle;
+        solveButton.style.cssText = buttonStyle;
 
-        [solveCopy, pauseCopy].forEach(button => {
+        [solveAllButton, solveButton].forEach(button => {
             button.addEventListener("mousemove", () => {
                 button.style.filter = "brightness(1.1)";
             });
         });
 
-        [solveCopy, pauseCopy].forEach(button => {
+        [solveAllButton, solveButton].forEach(button => {
             button.addEventListener("mouseleave", () => {
                 button.style.filter = "none";
             });
         });
 
-        original.parentElement.appendChild(pauseCopy);
-        original.parentElement.appendChild(solveCopy);
+        original.parentElement.appendChild(solveButton);
+        original.parentElement.appendChild(solveAllButton);
 
-        solveCopy.addEventListener('click', solving);
-        pauseCopy.addEventListener('click', solve);
+        solveAllButton.addEventListener('click', solveAll);
+        solveButton.addEventListener('click', solve);
     }
 }
 
 setInterval(addButtons, ADD_BUTTON_DELAY);
 
-function solving() {
+function solveAll() {
     if (solvingIntervalId) {
         clearInterval(solvingIntervalId);
         solvingIntervalId = undefined;
@@ -380,4 +380,4 @@ function logDebug(text) {
 
 window.findReact = findReact;
 
-window.ss = solving;
+window.ss = solveAll;
