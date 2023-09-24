@@ -107,6 +107,8 @@ function addButtons() {
 
         solveAllButton.addEventListener('click', solveAll);
         solveButton.addEventListener('click', solve);
+
+        solveAllButton.click();
     }
 }
 
