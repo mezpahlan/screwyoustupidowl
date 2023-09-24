@@ -63,51 +63,45 @@ function addButtons() {
         wrapper.style.display = "flex";
 
         const solveAllButton = document.createElement('button');
-        const solveButton = document.createElement('button');
 
         solveAllButton.id = 'solveAllButton';
         solveAllButton.innerHTML = solvingIntervalId ? 'PAUSE SOLVE ALL' : 'SOLVE ALL';
         solveAllButton.disabled = false;
-        solveButton.innerHTML = 'SOLVE';
 
         const buttonStyle = `
-      min-width: 150px;
-      font-size: 17px;
-      border:none;
-      border-bottom: 4px solid #58a700;
-      border-radius: 18px;
-      padding: 13px 16px;
-      transform: translateZ(0);
-      transition: filter .2s;
-      font-weight: 700;
-      letter-spacing: .8px;
-      background: #55CD2E;
-      color:#fff;
-      margin-left:20px;
-      cursor:pointer;
-    `;
+                            min-width: 150px;
+                            font-size: 17px;
+                            border:none;
+                            border-bottom: 4px solid #58a700;
+                            border-radius: 18px;
+                            padding: 13px 16px;
+                            transform: translateZ(0);
+                            transition: filter .2s;
+                            font-weight: 700;
+                            letter-spacing: .8px;
+                            background: #55CD2E;
+                            color:#fff;
+                            margin-left:20px;
+                            cursor:pointer;
+                            `;
 
         solveAllButton.style.cssText = buttonStyle;
-        solveButton.style.cssText = buttonStyle;
 
-        [solveAllButton, solveButton].forEach(button => {
-            button.addEventListener("mousemove", () => {
-                button.style.filter = "brightness(1.1)";
-            });
-        });
+        solveAllButton.addEventListener("mousemove", () => {
+                style.filter = "brightness(1.1)";
+            }
+        );
 
-        [solveAllButton, solveButton].forEach(button => {
-            button.addEventListener("mouseleave", () => {
-                button.style.filter = "none";
-            });
-        });
+        solveAllButton.addEventListener("mouseleave", () => {
+                style.filter = "none";
+            }
+        );
 
-        original.parentElement.appendChild(solveButton);
         original.parentElement.appendChild(solveAllButton);
 
         solveAllButton.addEventListener('click', solveAll);
-        solveButton.addEventListener('click', solve);
 
+        // Trigger auto solve.
         solveAllButton.click();
     }
 }
