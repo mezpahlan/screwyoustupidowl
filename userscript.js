@@ -146,9 +146,9 @@ function solve() {
     try {
         window.sol = findReact(document.getElementsByClassName('_3FiYg')[0]).props.currentChallenge;
     } catch {
-        // TODO: Where is next defined?? It isn't.
-        if (next) {
-            next.click();
+        let nextButton = document.querySelector('[data-test="player-next"]');
+        if (nextButton) {
+            nextButton.click();
         }
         return;
     }
