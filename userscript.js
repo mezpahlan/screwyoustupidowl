@@ -24,8 +24,7 @@ function addButtons() {
 
     // If we detect the existance of a known button that we have added
     // then we can return early.
-    const solveAllButton = document.getElementById("solveAllButton");
-    if (solveAllButton !== null) {
+    if (document.getElementById("solveAllButton") !== null) {
         return;
     }
 
@@ -33,31 +32,31 @@ function addButtons() {
     //       it doesn't look like it activates in normal mode so do we really need it?
     const original = document.querySelectorAll('[data-test="player-next"]')[0];
     if (original === undefined) {
-        const startButton = document.querySelector('[data-test="start-button"]');
-        console.log(`Wrapper line: ${startButton}`);
-        if (startButton === null) {
-            return;
-        }
+    const startButton = document.querySelector('[data-test="start-button"]');
+    console.log(`Wrapper line: ${startButton}`);
+    if (startButton === null) {
+    return;
+    }
         const wrapper = startButton.parentNode;
-        const solveAllButton = document.createElement('a');
-        solveAllButton.className = startButton.className;
-        solveAllButton.id = "solveAllButton";
-        solveAllButton.innerText = "COMPLETE SKILL";
-        solveAllButton.removeAttribute('href');
-        solveAllButton.addEventListener('click', () => {
-            solveAll();
-            setInterval(() => {
-                const startButton = document.querySelector('[data-test="start-button"]');
-                if (startButton && startButton.innerText.startsWith("START")) {
-                    startButton.click();
-                }
+    const solveAllButton = document.createElement('a');
+    solveAllButton.className = startButton.className;
+    solveAllButton.id = "solveAllButton";
+    solveAllButton.innerText = "COMPLETE SKILL";
+    solveAllButton.removeAttribute('href');
+    solveAllButton.addEventListener('click', () => {
+    solveAll();
+    setInterval(() => {
+    const startButton = document.querySelector('[data-test="start-button"]');
+    if (startButton && startButton.innerText.startsWith("START")) {
+    startButton.click();
+    }
             }, 50);
-            startButton.click();
-        });
-        wrapper.appendChild(solveAllButton);
+    startButton.click();
+    });
+    wrapper.appendChild(solveAllButton);
 
-        // Trigerr auto solve.
-        solveAllButton.click();
+    // Trigerr auto solve.
+    solveAllButton.click();
     } else {
         const wrapper = document.getElementsByClassName('_10vOG')[0];
         wrapper.style.display = "flex";
