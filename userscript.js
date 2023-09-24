@@ -86,16 +86,6 @@ function addButtons() {
 
         solveAllButton.style.cssText = buttonStyle;
 
-        solveAllButton.addEventListener("mousemove", () => {
-                style.filter = "brightness(1.1)";
-            }
-        );
-
-        solveAllButton.addEventListener("mouseleave", () => {
-                style.filter = "none";
-            }
-        );
-
         original.parentElement.appendChild(solveAllButton);
 
         solveAllButton.addEventListener('click', solveAll);
