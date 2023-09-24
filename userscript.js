@@ -55,6 +55,9 @@ function addButtons() {
             startButton.click();
         });
         wrapper.appendChild(solveAllButton);
+
+        // Trigerr auto solve.
+        solveAllButton.click();
     } else {
         const wrapper = document.getElementsByClassName('_10vOG')[0];
         wrapper.style.display = "flex";
@@ -104,9 +107,6 @@ function addButtons() {
 
         solveCopy.addEventListener('click', solving);
         pauseCopy.addEventListener('click', solve);
-
-        // Trigger auto practice
-        solveCopy.click();
     }
 }
 
