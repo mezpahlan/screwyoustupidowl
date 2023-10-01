@@ -15,7 +15,7 @@ const SOLVE_DELAY = 50
 function navigateToPracticeFromHomeTree() {
     if (/learn/.test(location.pathname)) {
         var newURL = location.protocol + "//" + location.host + "/practice"
-        location.replace(newURL);
+        location.assign(newURL);
         return true;
     }
     return false;
