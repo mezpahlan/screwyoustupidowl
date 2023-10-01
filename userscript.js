@@ -2,7 +2,7 @@
 // @name        ScrewYouStupidOwl
 // @namespace   Violentmonkey Scripts
 // @match       https://*.duolingo.com/*
-// @run-at      document-start
+// @run-at      document-idle
 // @grant       none
 // @version     0.1
 // @description When you don't want to practice.
@@ -11,27 +11,42 @@
 const debug = true;
 const ADD_BUTTON_DELAY = 300
 const SOLVE_DELAY = 50
+const LOOP_DELAY=50
+var isNavigating = false
 
-function navigateToPracticeFromHomeTree() {
-    if (/learn/.test(location.pathname)) {
-        var newURL = location.protocol + "//" + location.host + "/practice"
-        location.assign(newURL);
-        return true;
-    }
-    return false;
-}
+var blob = new Blob([`(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`], {type: 'text/javascript'})
+var url = URL.createObjectURL(blob)
+var worker = new Worker(url)
 
-function addButtons() {
+worker.onmessage = function(e) {
     if (navigateToPracticeFromHomeTree()) {
         return;
     }
 
-    // If we detect the existance of a known button that we have added
-    // then we can return early.
-    if (document.getElementById("solveAllButton") !== null) {
-        return;
+    const solveAllButton = document.getElementById("solveAllButton");
+    if (solveAllButton !== null) {
+        solveAllButton.click();
+    } else {
+        addButtons();
     }
+}
 
+function navigateToPracticeFromHomeTree() {
+    if (/learn/.test(location.pathname) && isNavigating == false) {
+        isNavigating = true;
+        var newURL = location.protocol + "//" + location.host + "/practice"
+        location.assign(newURL);
+        return true;
+    } else if (/practice/.test(location.pathname)) {
+        isNavigating = false
+        return false;
+    } else {
+        // Don't navigate anywhere if we aren't on learn or practice.
+        return true;
+    }
+}
+
+function addButtons() {
     const originalButton = document.querySelectorAll('[data-test="player-next"]')[0];
     const wrapper = document.getElementsByClassName('_10vOG')[0];
     wrapper.style.display = "flex";
@@ -64,18 +79,9 @@ function addButtons() {
     originalButton.parentElement.appendChild(solveAllButton);
 
     solveAllButton.addEventListener('click', solveAll);
-
-    // Trigger auto solve.
-    solveAllButton.click();
 }
-
-setInterval(addButtons, ADD_BUTTON_DELAY);
 
 function solveAll() {
-    setInterval(solve, SOLVE_DELAY);
-}
-
-function solve() {
     // If we are at the end of a lesson, move on.
     const selAgain = document.querySelectorAll('[data-test="player-practice-again"]');
     const practiceAgain = document.querySelector('[data-test="player-practice-again"]');
