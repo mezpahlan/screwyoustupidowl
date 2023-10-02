@@ -13,8 +13,8 @@ const ADD_BUTTON_DELAY = 300 // TODO: Delete?
 const SOLVE_DELAY = 50 // TODO: Delete?
 const LOOP_DELAY=150
 let isNavigating = false
-let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
 
+let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
 let blob = new Blob([workerCode], {type: 'text/javascript'})
 let url = URL.createObjectURL(blob)
 let worker = new Worker(url)
