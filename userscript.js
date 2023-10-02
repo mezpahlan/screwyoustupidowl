@@ -15,7 +15,7 @@ const LOOP_DELAY=150
 let isNavigating = false
 
 let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
-let blob = new Blob([workerCode], {type: 'text/javascript'})
+let blob = new Blob([workerCode], {type: 'application/javascript'})
 let url = URL.createObjectURL(blob)
 let worker = new Worker(url)
 
