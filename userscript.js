@@ -12,11 +12,12 @@ const debug = true;
 const ADD_BUTTON_DELAY = 300
 const SOLVE_DELAY = 50
 const LOOP_DELAY=50
-var isNavigating = false
+let isNavigating = false
+let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
 
-var blob = new Blob([`(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`], {type: 'text/javascript'})
-var url = URL.createObjectURL(blob)
-var worker = new Worker(url)
+let blob = new Blob([workerCode], {type: 'text/javascript'})
+let url = URL.createObjectURL(blob)
+let worker = new Worker(url)
 
 worker.onmessage = function(e) {
     if (navigateToPracticeFromHomeTree()) {
