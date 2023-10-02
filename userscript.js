@@ -9,9 +9,9 @@
 // ==/UserScript==
 
 const debug = true;
-const ADD_BUTTON_DELAY = 300
-const SOLVE_DELAY = 50
-const LOOP_DELAY=50
+const ADD_BUTTON_DELAY = 300 // TODO: Delete?
+const SOLVE_DELAY = 50 // TODO: Delete?
+const LOOP_DELAY=150
 let isNavigating = false
 let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
 
