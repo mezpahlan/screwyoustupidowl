@@ -14,12 +14,21 @@ const SOLVE_DELAY = 50 // TODO: Delete?
 const LOOP_DELAY=150
 let isNavigating = false
 
-let workerCode = `(function loop() {setTimeout(() => { postMessage('tick'); loop();}, ${LOOP_DELAY});})();`;
+let workerCode = `
+onmessage = (e) => {
+    setTimeout(()=> postMessage('tick'), ${LOOP_DELAY});
+}
+
+(() => {
+  postMessage('tick');
+})();
+
+`;
 let blob = new Blob([workerCode], {type: 'application/javascript'})
 let url = URL.createObjectURL(blob)
 let worker = new Worker(url)
 
-worker.onmessage = function(e) {
+worker.onmessage = (e) => {
     if (navigateToPracticeFromHomeTree()) {
         return;
     }
@@ -30,6 +39,8 @@ worker.onmessage = function(e) {
     } else {
         addButtons();
     }
+
+    worker.postMessage('tock');
 }
 
 function navigateToPracticeFromHomeTree() {
@@ -50,6 +61,8 @@ function navigateToPracticeFromHomeTree() {
 function addButtons() {
     const originalButton = document.querySelectorAll('[data-test="player-next"]')[0];
     const wrapper = document.getElementsByClassName('_10vOG')[0];
+    if (wrapper === undefined) return;
+
     wrapper.style.display = "flex";
 
     const solveAllButton = document.createElement('button');
